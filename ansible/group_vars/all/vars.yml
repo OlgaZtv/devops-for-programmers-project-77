@@ -1,0 +1,10 @@
+datadog_site: datadoghq.eu
+site_base_url: http://ttalki.ru/
+datadog_checks:
+  http_check:
+    init_config:
+    instances:
+      - name: http_check
+        url: "{{ site_base_url }}"
+        timeout: 5
+        method: GET

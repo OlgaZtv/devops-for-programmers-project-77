@@ -1,0 +1,7 @@
+db_password: "{{ DB_PASSWORD }}"
+db_host: "{{ DB_HOST }}"
+db_username: "{{ DB_USERNAME }}"
+db_database: "{{ DB_DATABASE }}"
+db_port: "{{ DB_PORT }}"
+datadog_api_key: "{{ DATADOG_API_KEY }}"
+dd_app_key: "{{ DATADOG_APP_KEY }}"
