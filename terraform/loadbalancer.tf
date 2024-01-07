@@ -1,11 +1,14 @@
 resource "yandex_alb_target_group" "lb_target_group" {
-  attachment {
-    ip_address = yandex_compute_instance.vm["terraform1"].network_interface.0.ip_address
-  }
-  attachment {
-    ip_address = yandex_compute_instance.vm["terraform2"].network_interface.0.ip_address
-  }
+  name = "example-target-group"
 
+  target {
+    subnet_id = yandex_vpc_subnet.subnet-1.id
+    address   = yandex_compute_instance.vm["terraform1"].network_interface.0.ip_address
+  }
+  target {
+    subnet_id = yandex_vpc_subnet.subnet-1.id
+    address   = yandex_compute_instance.vm["terraform2"].network_interface.0.ip_address
+  }
 }
 
 resource "yandex_alb_backend_group" "lb-backend-group" {
