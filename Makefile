@@ -1,11 +1,15 @@
 init:
 	terraform -chdir=terraform init
 
-apply:
-	terraform -chdir=terraform apply
+tf-validate:
+	terraform -chdir=./terraform validate
 
 plan:
 	terraform -chdir=terraform plan
+
+apply:
+	terraform -chdir=terraform apply
+	terraform -chdir=terraform output -raw inventory > ansible/inventory.ini
 
 destroy:
 	terraform -chdir=terraform destroy
@@ -15,6 +19,9 @@ install:
 
 deploy:
 	ansible-playbook -i ansible/inventory.ini -v --vault-password-file ansible/vault-password ansible/playbook.yml
+
+generate-tf-vars:
+	ansible-playbook ./ansible/terraform.yml --vault-password-file ./vault-password
 
 encrypt:
 	ansible-vault encrypt --vault-password-file ansible/vault-password ansible/group_vars/webservers/vault.yml

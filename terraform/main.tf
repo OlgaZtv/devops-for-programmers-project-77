@@ -1,30 +1,14 @@
-resource "yandex_compute_instance" "vm-1" {
-  name = "terraform1"
-
-  resources {
-    cores  = 4
-    memory = 4
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = "epda9gsnpd8gkk2i3pir"
-      size     = 15
-    }
-  }
-
-  network_interface {
-    subnet_id = yandex_vpc_subnet.subnet-1.id
-    nat       = true
-  }
-
-  metadata = {
-    ssh-keys = "ubuntu:${var.admin_ssh_key}"
+locals {
+  instances = {
+    "terraform1" = "epda9gsnpd8gkk2i3pir",
+    "terraform2" = "epdg1ipoge0on9ij243e"
   }
 }
 
-resource "yandex_compute_instance" "vm-2" {
-  name = "terraform2"
+resource "yandex_compute_instance" "vm" {
+  for_each = local.instances
+
+  name = each.key
 
   resources {
     cores  = 4
@@ -33,7 +17,7 @@ resource "yandex_compute_instance" "vm-2" {
 
   boot_disk {
     initialize_params {
-      image_id = "epdg1ipoge0on9ij243e"
+      image_id = each.value
       size     = 15
     }
   }
