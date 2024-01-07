@@ -1,14 +1,9 @@
 resource "yandex_alb_target_group" "lb_target_group" {
-  name = "project-target-group"
-
-  target {
-    subnet_id  = yandex_vpc_subnet.subnet-1.id
-    ip_address = yandex_compute_instance.vm-1.network_interface.0.ip_address
+  attachment {
+    ip_address = yandex_compute_instance.vm["terraform1"].network_interface.0.ip_address
   }
-
-  target {
-    subnet_id  = yandex_vpc_subnet.subnet-1.id
-    ip_address = yandex_compute_instance.vm-2.network_interface.0.ip_address
+  attachment {
+    ip_address = yandex_compute_instance.vm["terraform2"].network_interface.0.ip_address
   }
 
 }
