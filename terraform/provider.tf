@@ -3,7 +3,7 @@ terraform {
     yandex = {
       source = "yandex-cloud/yandex"
     }
-    datadog ={
+    datadog = {
       source = "DataDog/datadog"
     }
   }
